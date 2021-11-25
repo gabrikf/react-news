@@ -14,10 +14,11 @@
   --gray-900: #121214;
 
   --cyan-500: #61dafb;
-  --yellow-500: #49453c;
+  --gray-500: #49453c;
+  --yellow-500: #eba417;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1080px) {  
   html {
     font-size: 93.75%;
   }
