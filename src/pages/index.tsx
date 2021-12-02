@@ -1,9 +1,16 @@
 import Head from "next/head";
-import { GetServerSideProps } from 'next' 
+import { GetStaticProps } from 'next' 
 import { SubscribeButton } from "../components/SubscribeButton";
 import styles from './home.module.scss'
 import { stripe } from "../services/stripe";
 
+
+
+// 3 formats of apis's calls
+
+//client side
+//server side
+//static site generation
 interface HomeProps {
   product : {
     priceId: string;
@@ -37,7 +44,7 @@ export default function Home({product}:HomeProps) {
 
 
 // everething that a use here will hsappen in snode server, not in browser 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const price = await stripe.prices.retrieve('price_1K0tHmGCQHtsbFUAjY3gGqvn',{
     expand:['product'] // get all product's info
   })
@@ -55,6 +62,30 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
      props:{
       product
-     }
+     },
+     revalidate: 60 * 60 * 24 // 60 * 60 = 1hr * 24 = 1d
   }
 }
+
+
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const price = await stripe.prices.retrieve('price_1K0tHmGCQHtsbFUAjY3gGqvn',{
+//     expand:['product'] // get all product's info
+//   })
+
+//   const product = {
+//     priceId: price.id,
+//     amount: new Intl.NumberFormat('en-US', {
+//       style: 'currency',
+//       currency:'USD'
+//     }).format((price.unit_amount / 100)),
+    
+    
+
+//   }
+//   return {
+//      props:{
+//       product
+//      }
+//   }
+// }
