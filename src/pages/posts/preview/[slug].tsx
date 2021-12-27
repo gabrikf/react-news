@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import { RichText } from "prismic-dom";
 import { getPrismicClient } from "../../../services/prismic";
@@ -50,9 +50,16 @@ export default function PostPreview({ post }: PostPreviwProps) {
   );
 }
 
-export const getStaticPaths = () => {
+// this way you give options to what page you want to load during ther build
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [],
+    paths: [
+      {
+        params: {
+          slug: "como-renomear-varios-arquivos-de-uma-vez-usando-o-terminal",
+        },
+      },
+    ],
     fallback: "blocking",
   };
 };
@@ -77,5 +84,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
   return {
     props: { post },
+    revalidate: 60 * 30, // 30min
   };
 };

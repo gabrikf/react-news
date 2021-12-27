@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
 }) => {
   const session = await getSession({ req });
-  console.log(session);
+
   if (!session?.activeUser) {
     return {
       redirect: {
