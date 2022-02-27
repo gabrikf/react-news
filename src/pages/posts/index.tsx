@@ -66,11 +66,6 @@ export const getStaticProps: GetStaticProps = async () => {
       ),
     };
   });
-<<<<<<< HEAD
-  console.log(posts);
-=======
-
->>>>>>> origin
   return {
     props: { posts },
   };
