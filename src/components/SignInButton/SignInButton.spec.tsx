@@ -54,7 +54,7 @@ describe("Signin Button component", () => {
   });
 
   it("should call signinFn when click", () => {
-    const mockedSigOut = mocked(signIn);
+    const mockedSigIn = mocked(signIn);
     useMockedSession.mockReturnValueOnce({
       status: "unauthenticated",
       data: null,
@@ -64,6 +64,6 @@ describe("Signin Button component", () => {
     const mockedButton = screen.getByText("Sign in with Github");
     fireEvent.click(mockedButton);
 
-    expect(mockedSigOut).toBeCalled();
+    expect(mockedSigIn).toBeCalled();
   });
 });
