@@ -3,10 +3,8 @@ import { useRouter } from "next/router";
 import { api } from "../../services/api";
 import { getStrpeJs } from "../../services/stripe-js";
 import styles from "./styles.module.scss";
-interface SubscibeButtonProps {
-  priceId: string;
-}
-export function SubscribeButton({ priceId }: SubscibeButtonProps) {
+
+export function SubscribeButton() {
   const { data: session } = useSession();
   const router = useRouter();
   async function handleSubscribe() {
@@ -15,7 +13,7 @@ export function SubscribeButton({ priceId }: SubscibeButtonProps) {
       return;
     }
     if (session.activeUser) {
-      router.push("posts");
+      router.push("/posts");
       return;
     }
     try {
