@@ -1,10 +1,8 @@
 import Head from "next/head";
-import { GetStaticProps } from 'next' 
+import { GetStaticProps } from "next";
 import { SubscribeButton } from "../components/SubscribeButton";
-import styles from './home.module.scss'
+import styles from "./home.module.scss";
 import { stripe } from "../services/stripe";
-
-
 
 // 3 formats of apis's calls
 
@@ -12,14 +10,13 @@ import { stripe } from "../services/stripe";
 //server side
 //static site generation
 interface HomeProps {
-  product : {
+  product: {
     priceId: string;
-    amount: number;
-
-  }
+    amount: string;
+  };
 }
 
-export default function Home({product}:HomeProps) {
+export default function Home({ product }: HomeProps) {
   return (
     <>
       <Head>
@@ -28,13 +25,16 @@ export default function Home({product}:HomeProps) {
       </Head>
       <main className={styles.contentContainer}>
         <section className={styles.hero}>
-        <span >👏 Hail, welcome!</span>
-        <h1>News about the <span>React</span> world.</h1>
-        <p>
-          Get access to all the publications<br />
-          <span>for {product.amount} month</span>
-        </p>
-        <SubscribeButton priceId={product.priceId}/>
+          <span>👏 Hail, welcome!</span>
+          <h1>
+            News about the <span>React</span> world.
+          </h1>
+          <p>
+            Get access to all the publications
+            <br />
+            <span>for {product.amount} month</span>
+          </p>
+          <SubscribeButton />
         </section>
         <img src="/images/avatar.svg" alt="Girl Coding" />
       </main>
@@ -42,31 +42,26 @@ export default function Home({product}:HomeProps) {
   );
 }
 
-
-// everething that a use here will hsappen in snode server, not in browser 
+// everething that a use here will hsappen in snode server, not in browser
 export const getStaticProps: GetStaticProps = async () => {
-  const price = await stripe.prices.retrieve('price_1K0tHmGCQHtsbFUAjY3gGqvn',{
-    expand:['product'] // get all product's info
-  })
+  const price = await stripe.prices.retrieve("price_1K0tHmGCQHtsbFUAjY3gGqvn", {
+    expand: ["product"], // get all product's info
+  });
 
   const product = {
     priceId: price.id,
-    amount: new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency:'USD'
-    }).format((price.unit_amount / 100)),
-    
-    
-
-  }
+    amount: new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(price.unit_amount / 100),
+  };
   return {
-     props:{
-      product
-     },
-     revalidate: 60 * 60 * 24 // 60 * 60 = 1hr * 24 = 1d
-  }
-}
-
+    props: {
+      product,
+    },
+    revalidate: 60 * 60 * 24, // 60 * 60 = 1hr * 24 = 1d
+  };
+};
 
 // export const getServerSideProps: GetServerSideProps = async () => {
 //   const price = await stripe.prices.retrieve('price_1K0tHmGCQHtsbFUAjY3gGqvn',{
@@ -79,8 +74,6 @@ export const getStaticProps: GetStaticProps = async () => {
 //       style: 'currency',
 //       currency:'USD'
 //     }).format((price.unit_amount / 100)),
-    
-    
 
 //   }
 //   return {
