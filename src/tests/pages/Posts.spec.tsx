@@ -61,24 +61,4 @@ describe("Posts page", () => {
       })
     );
   });
-
-  // it("loads inital data", async () => {
-  //   const mockedStripePrice = mocked(stripe.prices.retrieve);
-  //   mockedStripePrice.mockResolvedValueOnce({
-  //     id: "fakeId",
-  //     unit_amount: 1000,
-  //   } as any);
-  //   const response = await getStaticProps({});
-  //   console.log(response);
-  //   expect(response).toEqual(
-  //     expect.objectContaining({
-  //       props: {
-  //         product: {
-  //           priceId: "fakeId",
-  //           amount: "$10.00",
-  //         },
-  //       },
-  //     })
-  //   );
-  // });
 });

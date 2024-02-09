@@ -50,7 +50,6 @@ export default function PostPreview({ post }: PostPreviwProps) {
   );
 }
 
-// this way you give options to what page you want to load during ther build
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [

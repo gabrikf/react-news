@@ -6,6 +6,7 @@ import Prismic from "@prismicio/client";
 import { RichText } from "prismic-dom";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+
 interface Posts {
   slug: string;
   title: string;
@@ -71,7 +72,6 @@ export const getStaticProps: GetStaticProps = async () => {
       ),
     };
   });
-  console.log(posts);
   return {
     props: { posts },
   };

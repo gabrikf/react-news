@@ -48,20 +48,6 @@ describe("Post preview page", () => {
     render(<Post post={post} />);
     expect(mockedPush).toBeCalledWith("/posts/new-post");
   });
-  // it("should redirect user if subscription was not found", async () => {
-  //   const sessionMocket = mocked(getSession);
-  //   sessionMocket.mockReturnValueOnce(null);
-  //   const response = await getServerSideProps({
-  //     params: { slug: "my-new-post" },
-  //   } as any);
-  //   expect(response).toEqual(
-  //     expect.objectContaining({
-  //       redirect: expect.objectContaining({
-  //         destination: "/",
-  //       }),
-  //     })
-  //   );
-  // });
 
   it("should return correctly the data", async () => {
     const mockedPrismic = mocked(getPrismicClient);
